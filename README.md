@@ -1,3 +1,4 @@
+# WARNING: THIS IS A PROJECT IN BETA I AM NOT RESPONSIBLE FOR ANY DESTROYED DATA LAPTOPS/PC I RECOMMEND A VM
 # ⟐ Amnesic Wipe
 
 **Secure · Amnesic · RAM-only · Arch-based Linux**
