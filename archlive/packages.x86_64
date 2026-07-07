@@ -1,0 +1,107 @@
+# Amnesic Wipe — package list (x86_64)
+# =====================================
+
+# ── Base system ───────────────────────────────────────
+base
+base-devel
+linux
+linux-headers
+linux-firmware
+amd-ucode
+intel-ucode
+busybox
+
+# ── System utilities ──────────────────────────────────
+systemd
+systemd-sysvcompat
+dbus
+glibc
+bash
+coreutils
+findutils
+grep
+sed
+gawk
+tar
+gzip
+bzip2
+xz
+zstd
+less
+which
+util-linux
+kmod
+procps-ng
+psmisc
+shadow
+sudo
+ca-certificates
+ca-certificates-utils
+openssl
+
+# ── Filesystem ────────────────────────────────────────
+dosfstools
+e2fsprogs
+squashfs-tools
+
+# ── Networking ────────────────────────────────────────
+tor
+torsocks
+nyx
+iptables-nft
+nftables
+macchanger
+dhcpcd
+openresolv
+bind
+curl
+wget
+openssh
+
+# ── Editors & tools ───────────────────────────────────
+vim
+nano
+htop
+neofetch
+which
+tree
+unzip
+p7zip
+
+# ── Memory / system tools ─────────────────────────────
+memtest86+
+memtester
+stress
+
+# ── Desktop (lightweight Wayland) ─────────────────────
+sway
+foot
+wofi
+waybar
+swaybg
+swayidle
+swaylock
+grim
+slurp
+wl-clipboard
+ttf-jetbrains-mono-nerd
+ttf-dejavu
+noto-fonts
+noto-fonts-emoji
+
+# ── XWayland (needed for some apps) ───────────────────
+xorg-xwayland
+xorg-xrandr
+
+# ── GRUB & bootloader ─────────────────────────────────
+grub
+syslinux
+efibootmgr
+os-prober
+mtools
+
+# ── Amnesic / security extras ─────────────────────────
+haveged
+iwd
+wireless-tools
+wpa_supplicant

@@ -1,0 +1,12 @@
+
+╔══════════════════════════════════════════════════════╗
+║               ⟐  A M N E S I C   W I P E  ⟐         ║
+║   secure · amnesic · RAM-only · Arch-based           ║
+║══════════════════════════════════════════════════════║
+║  • All data is VOLATILE — nothing survives reboot    ║
+║  • All traffic routed through Tor                    ║
+║  • Memory is scrubbed on shutdown                    ║
+║  • MAC addresses randomised on every boot            ║
+║  • Kernel hardened (lockdown, KASLR, no BPF JIT…)   ║
+║  • Swap disabled · no persistence                    ║
+╚══════════════════════════════════════════════════════╝

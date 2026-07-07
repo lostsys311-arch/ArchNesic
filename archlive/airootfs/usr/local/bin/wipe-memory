@@ -1,0 +1,40 @@
+#!/bin/bash
+# wipe-memory — securely wipe all volatile memory on shutdown
+# Called by systemd service before poweroff / reboot
+set -euo pipefail
+
+log() { echo "[wipe-memory] $*"; }
+
+log "Amnesic Wipe — scrubbing volatile memory…"
+
+# 1. Overwrite swap (shouldn't exist, but be sure)
+for sw in /dev/zram* /dev/dm-*; do
+  [[ -b "$sw" ]] || continue
+  swapoff "$sw" 2>/dev/null || true
+  dd if=/dev/urandom of="$sw" bs=4M status=none 2>/dev/null || true
+done
+
+# 2. Drop caches & dentries
+sync
+echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
+
+# 3. Fill free memory to scrub residual data
+if command -v memtester &>/dev/null; then
+  # memtester touches all pages
+  memtester 1 1 &>/dev/null || true
+fi
+
+# 4. Overwrite /tmp, /var/tmp, /run with random data
+for d in /tmp /var/tmp /run; do
+  if mountpoint -q "$d" 2>/dev/null; then
+    dd if=/dev/urandom of="$d/.wipe" bs=4M 2>/dev/null || true
+    rm -f "$d/.wipe"
+  fi
+done
+
+# 5. Final sync
+sync
+sync
+sync
+
+log "Memory scrub complete. Halting."

@@ -1,0 +1,112 @@
+# Amnesic Wipe — Sway (Wayland compositor) config
+# Minimal, stylish, keyboard-driven
+
+set $mod Mod4
+set $term foot
+set $menu wofi --show drun
+
+font pango:JetBrains Mono 10
+
+# ── Appearance ────────────────────────────────────────
+default_border pixel 1
+default_floating_border pixel 1
+smart_borders off
+smart_gaps off
+gaps inner 4
+gaps outer 2
+focus_follows_mouse yes
+mouse_warping container
+
+set $bg_color     #1a1b26
+set $fg_color     #c0caf5
+set $accent_color #f7768e
+set $urgent_color #e0af68
+
+client.focused          $accent_color $bg_color $fg_color $accent_color $bg_color
+client.focused_inactive #3b4261 #1a1b26 $fg_color #3b4261 #1a1b26
+client.unfocused        #3b4261 #1a1b26 $fg_color #3b4261 #1a1b26
+client.urgent           $urgent_color $bg_color $fg_color $urgent_color $bg_color
+client.placeholder      #3b4261 #1a1b26 $fg_color #3b4261 #1a1b26
+client.background       $bg_color
+
+# ── Keybindings ───────────────────────────────────────
+# Launch terminal
+bindsym $mod+Return exec $term
+
+# Launch app launcher
+bindsym $mod+d exec $menu
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split orientation
+bindsym $mod+s split h
+bindsym $mod+v split v
+
+# Fullscreen
+bindsym $mod+f fullscreen
+
+# Floating
+bindsym $mod+Shift+space floating toggle
+
+# Workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+
+# Reload / exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exit
+
+# ── Bar (waybar) ──────────────────────────────────────
+bar {
+  position top
+  status_command waybar
+  colors {
+    background $bg_color
+    statusline $fg_color
+    separator $accent_color
+    focused_workspace  $accent_color $bg_color $fg_color
+    inactive_workspace #3b4261 #1a1b26 $fg_color
+    urgent_workspace   $urgent_color $bg_color $fg_color
+  }
+}
+
+# ── Startup ───────────────────────────────────────────
+exec_always {
+  # set wallpaper with swaybg
+  # (include a wallpaper in /usr/share/backgrounds/awipe/)
+  # swaybg -i /usr/share/backgrounds/awipe/wallpaper.png -m fill &
+}
+
+exec_always {
+  # start notification daemon
+  # dunst &
+}
