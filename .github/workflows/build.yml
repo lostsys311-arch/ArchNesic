@@ -20,6 +20,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Fix pacman config (community merged into extra in 2024)
+        run: |
+          # Remove [community] section from container's pacman.conf
+          sed -i '/^\[community\]/,/^Include/d' /etc/pacman.conf
+          sed -i 's/^#\(ParallelDownloads\)/\1/' /etc/pacman.conf
+          pacman -Syy --noconfirm
+
       - name: System update & install deps
         run: |
           pacman -Syu --noconfirm
