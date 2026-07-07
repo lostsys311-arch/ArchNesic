@@ -62,8 +62,7 @@ openssh
 vim
 nano
 htop
-neofetch
-which
+fastfetch
 tree
 unzip
 p7zip
@@ -103,5 +102,5 @@ mtools
 # ── Amnesic / security extras ─────────────────────────
 haveged
 iwd
-wireless-tools
+
 wpa_supplicant
