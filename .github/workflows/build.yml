@@ -3,8 +3,6 @@ name: Build amnesic-wipe ISO
 on:
   push:
     branches: [main, master]
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*' # Strict format lock: Must look like v1.0.0 or v0.1.0-beta
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -28,21 +26,17 @@ jobs:
           sed -i '/^\[community\]/,/^Include/d' /etc/pacman.conf
           sed -i 's/^#\(ParallelDownloads\)/\1/' /etc/pacman.conf
           pacman -Syy --noconfirm
-
       - name: System update & install deps
         run: |
           pacman -Syu --noconfirm
           pacman -S --noconfirm --needed archiso mkinitcpio
-
       - name: Build ISO
         run: |
           cd archlive
           mkarchiso -v .
-
       - name: Rename ISO
         run: |
           mv archlive/out/*.iso archlive/out/amnesic-wipe-$(date +%Y%m%d).iso
-
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
@@ -50,36 +44,3 @@ jobs:
           path: archlive/out/*.iso
           compression-level: 0
           retention-days: 90
-
-      # --- NEW: Locked release block for large files ---
-      - name: Create Checksum and GitHub Release
-        # SAFETY LOCK: Only runs if a tag is pushed AND the actor is explicitly you.
-        if: startsWith(github.ref, 'refs/tags/v') && github.actor == 'lostsys311-arch'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # 1. Install curl for the GitHub API call
-          pacman -S --noconfirm curl
-          
-          # 2. Calculate SHA256 checksum for transparency
-          cd archlive/out/
-          ISO_FILE=$(ls *.iso)
-          sha256sum "$ISO_FILE" > checksum.txt
-          CHECKSUM_VALUE=$(cat checksum.txt)
-          
-          # 3. Create the Release page using native curl (bypasses browser limits)
-          RELEASE_DATA=$(curl -s -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://github.com{{ github.repository }}/releases \
-            -d "{\"tag_name\":\"${{ github.ref_name }}\",\"name\":\"Release ${{ github.ref_name }}\",\"body\":\"### ArchNesic Privacy ISO\n\n**SHA256 Checksum:**\n\`\`\`\n$CHECKSUM_VALUE\n\`\`\`\n\n*Verify this hash before booting!*\",\"draft\":false,\"prerelease\":false}")
-          
-          # 4. Extract the upload URL for assets
-          UPLOAD_URL=$(echo "$RELEASE_DATA" | grep -oP '"upload_url":\s*"\K[^"]+' | sed 's/{?name,label}//')
-          
-          # 5. Securely stream the large 1.53 GB file directly to the Release
-          curl -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/octet-stream" \
-            --data-binary @"$ISO_FILE" \
-            "$UPLOAD_URL?name=$ISO_FILE"
