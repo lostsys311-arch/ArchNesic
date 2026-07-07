@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, master]
     tags:
-      - 'v*' # Triggers the workflow when you push a version tag like v1.0.0
+      - 'v[0-9]+.[0-9]+.[0-9]+*' # Strict format lock: Must look like v1.0.0 or v0.1.0-beta
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -51,9 +51,10 @@ jobs:
           compression-level: 0
           retention-days: 90
 
-      # --- NEW: Safe release block for large files ---
+      # --- NEW: Locked release block for large files ---
       - name: Create Checksum and GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        # SAFETY LOCK: Only runs if a tag is pushed AND the actor is explicitly you.
+        if: startsWith(github.ref, 'refs/tags/v') && github.actor == 'lostsys311-arch'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
