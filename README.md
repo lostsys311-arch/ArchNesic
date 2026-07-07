@@ -25,7 +25,7 @@ A live Linux distribution that leaves zero trace. Like Tails, but built on Arch 
 
 1. Fork this repo on GitHub
 2. Go to **Actions** → **Build amnesic-wipe ISO** → **Run workflow**
-3. Wait ~20–30 minutes (build time varies; GitHub Actions typically takes 15–30 min)
+3. Wait ~5–10 minutes
 4. Download the `amnesic-wipe-iso` artifact
 5. Write to USB: `dd if=amnesic-wipe-*.iso of=/dev/sdX bs=4M status=progress && sync`
 
