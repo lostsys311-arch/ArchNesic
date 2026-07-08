@@ -44,7 +44,8 @@ chown -R root:root /root || true
 
 # ── 8. Create unsafe user (UID 1000) for unsafe browser ─
 if ! id unsafe &>/dev/null; then
-  useradd -m -u 1000 -G wheel -s /bin/bash unsafe
+  useradd -u 1000 -G wheel -s /bin/bash unsafe
+  chown unsafe:unsafe /home/unsafe
   # No password — runs via sudo from root
   passwd -d unsafe 2>/dev/null || true
 fi
