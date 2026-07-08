@@ -1,4 +1,4 @@
-# Dockerfile — build amnesic-wipe ISO in a container
+# Dockerfile — build ArchNesic ISO in a container
 FROM archlinux:latest
 
 RUN pacman -Syu --noconfirm && \

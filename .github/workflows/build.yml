@@ -1,4 +1,4 @@
-name: Build amnesic-wipe ISO
+name: Build ArchNesic ISO
 
 on:
   push:
@@ -36,11 +36,11 @@ jobs:
           mkarchiso -v .
       - name: Rename ISO
         run: |
-          mv archlive/out/*.iso archlive/out/amnesic-wipe-$(date +%Y%m%d).iso
+          mv archlive/out/*.iso archlive/out/archnesic-$(date +%Y%m%d).iso
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
-          name: amnesic-wipe-iso
+          name: archnesic-iso
           path: archlive/out/*.iso
           compression-level: 0
           retention-days: 90
