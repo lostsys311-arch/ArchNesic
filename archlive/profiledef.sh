@@ -24,6 +24,7 @@ file_permissions=(
   ["/usr/local/bin/killswitch"]="0:0:755"
   ["/usr/local/bin/onion-ssh-address"]="0:0:755"
   ["/usr/local/bin/tor-status.sh"]="0:0:755"
+  ["/usr/local/bin/unsafe-browser"]="0:0:755"
   ["/usr/local/bin/panic-overlay.sh"]="0:0:755"
   ["/usr/local/bin/tor-watchdog.sh"]="0:0:755"
 )

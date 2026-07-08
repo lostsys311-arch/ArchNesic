@@ -75,7 +75,6 @@ ttf-jetbrains-mono-nerd
 noto-fonts
 noto-fonts-emoji
 dunst
-wvkbd
 
 # ── XWayland (needed for some apps) ───────────────────
 xorg-xwayland
@@ -87,7 +86,6 @@ efibootmgr
 
 # ── Plymouth (boot splash) ────────────────────────────
 plymouth
-plymouth-theme-spinner
 
 # ── Amnesic / security extras ─────────────────────────
 haveged

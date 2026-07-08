@@ -98,9 +98,6 @@ bindsym $mod+Escape exec /usr/local/bin/killswitch; exec /usr/local/bin/panic-ov
 # Lock screen
 bindsym $mod+Shift+l exec swaylock
 
-# Virtual keyboard toggle
-bindsym $mod+Shift+v exec wvkbd-mobintl || true
-
 # Reload / exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exit
