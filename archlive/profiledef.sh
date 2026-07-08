@@ -27,5 +27,4 @@ file_permissions=(
   ["/usr/local/bin/unsafe-browser"]="0:0:755"
   ["/usr/local/bin/panic-overlay.sh"]="0:0:755"
   ["/usr/local/bin/tor-watchdog.sh"]="0:0:755"
-  ["/home/unsafe"]="1000:1000:700"
 )
