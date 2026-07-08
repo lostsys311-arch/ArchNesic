@@ -81,6 +81,12 @@ bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 
+# Kill switch — drop all network immediately
+bindsym $mod+Escape exec /usr/local/bin/killswitch
+
+# Lock screen
+bindsym $mod+Shift+l exec swaylock -f -c 1a1b26
+
 # Reload / exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exit
@@ -98,6 +104,13 @@ bar {
     urgent_workspace   $urgent_color $bg_color $fg_color
   }
 }
+
+# ── Screen lock on idle ───────────────────────────────
+exec swayidle -w \
+  timeout 300 'swaylock -f -c 1a1b26' \
+  timeout 600 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock -f -c 1a1b26'
 
 # ── Startup ───────────────────────────────────────────
 exec_always {

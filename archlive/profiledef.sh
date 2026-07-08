@@ -22,4 +22,6 @@ file_permissions=(
   ["/usr/local/bin/archnesic-init.sh"]="0:0:755"
   ["/etc/iptables/tor.rules"]="0:0:600"
   ["/usr/local/bin/wipe-memory"]="0:0:755"
+  ["/usr/local/bin/killswitch"]="0:0:755"
+  ["/usr/local/bin/onion-ssh-address"]="0:0:755"
 )

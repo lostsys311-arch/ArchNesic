@@ -83,4 +83,19 @@ if ! mountpoint -q /home 2>/dev/null; then
   mount -t tmpfs -o mode=0700,noexec,nosuid,nodev tmpfs /home
 fi
 
+# ------------------------------------------------------------------
+# 7.  Set random hostname (amnesic — no identity)
+# ------------------------------------------------------------------
+RANDOM_HOSTNAME="arnesic-$(openssl rand -hex 4)"
+hostname "$RANDOM_HOSTNAME"
+echo "$RANDOM_HOSTNAME" > /proc/sys/kernel/hostname
+log "Hostname set to $RANDOM_HOSTNAME"
+
+# ------------------------------------------------------------------
+# 8.  Unload USB storage drivers (we're in RAM, no need)
+# ------------------------------------------------------------------
+rmmod usb-storage 2>/dev/null || true
+rmmod uas 2>/dev/null || true
+log "USB storage drivers unloaded."
+
 log "ArchNesic initialised. All data is volatile."

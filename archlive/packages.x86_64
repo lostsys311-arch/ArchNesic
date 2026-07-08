@@ -83,3 +83,9 @@ efibootmgr
 
 # ── Amnesic / security extras ─────────────────────────
 haveged
+obfs4
+snowflake-tor
+
+# ── Desktop apps ──────────────────────────────────────
+keepassxc
+onionshare

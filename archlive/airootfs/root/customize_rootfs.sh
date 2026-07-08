@@ -45,7 +45,12 @@ rm -f /etc/machine-id /var/lib/dbus/machine-id
 cp -r /etc/skel/. /home/olafkow/
 chown -R olafkow:olafkow /home/olafkow || true
 
-# ── 8. Clean package cache ────────────────────────────
+# ── 8. Prepare Tor hidden service directory ──────────
+mkdir -p /var/lib/tor/ssh_hidden_service
+chown -R tor:tor /var/lib/tor/ssh_hidden_service
+chmod 700 /var/lib/tor/ssh_hidden_service
+
+# ── 9. Clean package cache ────────────────────────────
 pacman -Scc --noconfirm || true
 
 echo "[customize] Done."

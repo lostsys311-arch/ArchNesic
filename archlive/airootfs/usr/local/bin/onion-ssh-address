@@ -1,0 +1,9 @@
+#!/bin/bash
+# Display the .onion address for SSH access
+HOSTNAME_FILE="/var/lib/tor/ssh_hidden_service/hostname"
+if [[ -f "$HOSTNAME_FILE" ]]; then
+  ONION=$(cat "$HOSTNAME_FILE")
+  echo "ssh olafkow@$ONION"
+else
+  echo "Tor hidden service not ready yet. Try again in a few seconds."
+fi
