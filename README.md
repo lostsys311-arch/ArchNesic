@@ -61,7 +61,10 @@ cd ArchNesic
 
 # Using Docker
 docker build -t archnesic-builder .
-docker run --privileged -v "$PWD/archlive/out:/out" archnesic-builder
+docker run --privileged \
+  -v "$PWD/archlive:/build" \
+  -v "$PWD/archlive/out:/out" \
+  archnesic-builder
 
 # Or directly (Arch only)
 sudo pacman -S archiso
