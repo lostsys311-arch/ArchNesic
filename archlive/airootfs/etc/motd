@@ -1,0 +1,15 @@
+
+╔══════════════════════════════════════════════════════╗
+║                 ⟐  A R C H N E S I C  ⟐              ║
+║   secure · amnesic · RAM-only · Arch-based           ║
+║══════════════════════════════════════════════════════║
+║  • All data VOLATILE — nothing survives reboot       ║
+║  • All traffic through Tor · stream isolation        ║
+║  • Tor bridges (obfs4 / Snowflake)                   ║
+║  • Hidden SSH .onion — type 'onion-address'          ║
+║  • MAC + hostname randomised every boot              ║
+║  • Kill switch: $mod+Escape — or type 'killswitch'   ║
+║  • Lock screen: $mod+Shift+L · auto-lock on idle     ║
+║  • USB storage blocked after boot                    ║
+║  • Memory scrubbed on shutdown                       ║
+╚══════════════════════════════════════════════════════╝

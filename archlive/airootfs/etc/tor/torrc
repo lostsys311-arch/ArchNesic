@@ -1,0 +1,66 @@
+# ArchNesic — Tor configuration
+# Transparent proxy: all TCP traffic goes through Tor
+
+User tor
+DataDirectory /var/lib/tor
+PIDFile /run/tor/tor.pid
+
+# Logging
+Log notice file /var/log/tor/notices.log
+Log warn file /var/log/tor/warnings.log
+
+# Transparent proxy on port 9040
+VirtualAddrNetwork 10.192.0.0/10
+TransPort 127.0.0.1:9040
+DNSPort 127.0.0.1:5353
+DNSPort 127.0.0.1:53
+
+# SOCKS5 proxy on port 9050
+SOCKSPort 127.0.0.1:9050
+SOCKSPolicy accept 127.0.0.0/8
+SOCKSPolicy reject *
+
+# Automap hosts onion addresses
+AutomapHostsOnResolve 1
+AutomapHostsSuffixes .exit,.onion
+
+# Hardening
+HardwareAccel 1
+DisableDebuggerAttachment 1
+AvoidDiskWrites 1
+Sandbox 1
+
+# No bridge or relay
+BridgeRelay 0
+
+# Pluggable transports (bridges)
+ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+ClientTransportPlugin snowflake exec /usr/bin/snowflake-client
+
+# Stream isolation — separate circuits per application
+SOCKSPort 127.0.0.1:9050 IsolationFlags NoIsolation
+SOCKSPort 127.0.0.1:9060 IsolationFlags IsolateDestAddr
+SOCKSPort 127.0.0.1:9070 IsolationFlags IsolateDestPort
+SOCKSPort 127.0.0.1:9080 IsolationFlags IsolateClientProtocol
+SOCKSPort 127.0.0.1:9090 IsolationFlags IsolateDestAddr,IsolateDestPort
+
+# Hidden SSH service (new random .onion each boot)
+HiddenServiceDir /var/lib/tor/ssh_hidden_service/
+HiddenServicePort 22 127.0.0.1:22
+
+# Strict exit nodes (optional — uncomment to restrict)
+# ExitNodes {us},{ca},{uk},{de},{nl},{se},{no},{ch}
+
+# Exclude certain countries (worst-case scenario)
+ExcludeExitNodes {cn},{hk},{mo},{ru},{ir},{kp},{sy},{ve},{cu},{by},{af}
+
+# Enable DoS protection
+DoSCircuitCreationEnabled 1
+DoSCircuitCreationMinConcurrent 10
+DoSCircuitCreationRate 250
+DoSCircuitCreationBurst 500
+DoSConnectionEnabled 1
+DoSConnectionMinConcurrent 10
+DoSConnectionRate 250
+DoSConnectionBurst 500
+DoSRefuseSingleHopPortRanges 1

@@ -1,0 +1,32 @@
+# ArchNesic — Transparent Tor firewall
+# All non-Tor output is blocked.
+# Only UID 42 (Tor) may route through the default gateway.
+#
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+
+# Loopback — allow everything
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# Existing / established — accept
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+-A OUTPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Tor traffic (via TUN, UID 42) — allow
+-A OUTPUT -o tun+ -j ACCEPT
+-A OUTPUT -m owner --uid-owner 42 -j ACCEPT
+
+# DNS via Tor — allow
+-A OUTPUT -p udp --dport 53 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -j ACCEPT
+
+# ICMP (ping etc., rate-limited) — allow
+-A OUTPUT -p icmp -m conntrack --ctstate NEW -m limit --limit 2/sec -j ACCEPT
+
+# Log dropped packets
+-A OUTPUT -m limit --limit 5/min -j LOG --log-prefix "TOR-BLOCK: " --log-level 4
+
+COMMIT

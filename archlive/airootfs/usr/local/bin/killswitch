@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "[killswitch] Dropping all network interfaces…"
+
+for iface in /sys/class/net/*/; do
+  iface="$(basename "$iface")"
+  [[ "$iface" = "lo" ]] && continue
+  ip link set "$iface" down 2>/dev/null || true
+done
+
+systemctl stop tor dhcpcd iwd 2>/dev/null || true
+
+echo "[killswitch] All interfaces down. Tor stopped."
+echo "[killswitch] Reboot to restore networking."

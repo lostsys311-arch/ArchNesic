@@ -1,0 +1,91 @@
+# ArchNesic — package list (x86_64)
+# ==================================
+
+# ── Base system ───────────────────────────────────────
+base
+linux
+linux-headers
+linux-firmware
+amd-ucode
+intel-ucode
+
+# ── System utilities ──────────────────────────────────
+systemd
+systemd-sysvcompat
+dbus
+glibc
+bash
+coreutils
+findutils
+grep
+sed
+gawk
+tar
+gzip
+xz
+zstd
+less
+util-linux
+kmod
+procps-ng
+psmisc
+shadow
+sudo
+ca-certificates
+ca-certificates-utils
+openssl
+
+# ── Filesystem ────────────────────────────────────────
+dosfstools
+e2fsprogs
+squashfs-tools
+
+# ── Networking ────────────────────────────────────────
+tor
+torsocks
+nyx
+iptables-nft
+nftables
+macchanger
+dhcpcd
+openresolv
+curl
+wget
+openssh
+iwd
+
+# ── Editors & tools ───────────────────────────────────
+vim
+fastfetch
+unzip
+
+# ── Desktop (lightweight Wayland) ─────────────────────
+sway
+foot
+wofi
+waybar
+swaybg
+swayidle
+swaylock
+grim
+slurp
+wl-clipboard
+ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-emoji
+
+# ── XWayland (needed for some apps) ───────────────────
+xorg-xwayland
+
+# ── Bootloader ────────────────────────────────────────
+syslinux
+grub
+efibootmgr
+
+# ── Amnesic / security extras ─────────────────────────
+haveged
+# obfs4proxy and snowflake are AUR-only; install manually after boot
+
+# ── Desktop apps ──────────────────────────────────────
+keepassxc
+onionshare

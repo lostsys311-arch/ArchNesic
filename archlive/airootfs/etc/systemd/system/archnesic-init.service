@@ -1,0 +1,15 @@
+[Unit]
+Description=ArchNesic — first-boot initialisation
+DefaultDependencies=no
+After=systemd-sysusers.service
+Before=sysinit.target
+ConditionPathExists=!/var/lib/archnesic-initialized
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/archnesic-init.sh
+ExecStartPost=/usr/bin/touch /var/lib/archnesic-initialized
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target
