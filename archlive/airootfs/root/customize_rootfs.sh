@@ -28,12 +28,8 @@ done
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' \
   /etc/sudoers
 
-# ── 4. Create user 'user' (for desktop use) ──────────
-useradd -m -G wheel -s /bin/bash olafkow 2>/dev/null || true
-echo "olafkow:2015" | chpasswd
-
-# Lock root password — no interactive root login
-passwd -l root 2>/dev/null || true
+# ── 4. Set root password ──────────────────────────────
+echo "root:arch" | chpasswd
 
 # ── 5. Set hostname ────────────────────────────────────
 echo "archnesic" > /etc/hostname
@@ -41,9 +37,9 @@ echo "archnesic" > /etc/hostname
 # ── 6. Remove machine-id (regenerated on each boot) ──
 rm -f /etc/machine-id /var/lib/dbus/machine-id
 
-# ── 7. Copy skel to user home ─────────────────────────
-cp -r /etc/skel/. /home/olafkow/
-chown -R olafkow:olafkow /home/olafkow || true
+# ── 7. Copy skel to root home ─────────────────────────
+cp -r /etc/skel/. /root/
+chown -R root:root /root || true
 
 # ── 8. Prepare Tor hidden service directory ──────────
 mkdir -p /var/lib/tor/ssh_hidden_service

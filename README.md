@@ -6,6 +6,14 @@
 
 A live Linux distribution that leaves zero trace. Like Tails, but built on Arch with an even smaller attack surface, full memory scrubbing, and a **Sway** desktop. Runs entirely in RAM.
 
+## Login credentials
+
+| User | Password |
+|---|---|
+| `root` | `arch` |
+
+Auto-login on tty1 with full root access.
+
 ## Features
 
 | Feature | ArchNesic |
