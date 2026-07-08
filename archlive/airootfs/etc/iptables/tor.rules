@@ -1,4 +1,4 @@
-# Amnesic Wipe — Transparent Tor firewall
+# ArchNesic — Transparent Tor firewall
 # All non-Tor output is blocked.
 # Only UID 42 (Tor) may route through the default gateway.
 #

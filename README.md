@@ -8,7 +8,7 @@ A live Linux distribution that leaves zero trace. Like Tails, but built on Arch 
 
 ## Features
 
-| Feature | Amnesic Wipe |
+| Feature | ArchNesic |
 |---|---|
 | **Amnesic** | Everything runs in RAM (`toram`). Nothing survives reboot. |
 | **Memory scrub** | All volatile memory is overwritten before shutdown/reboot. |
@@ -26,32 +26,26 @@ A live Linux distribution that leaves zero trace. Like Tails, but built on Arch 
 ### Option A — Download from GitHub Actions (FREE)
 
 1. Fork this repo on GitHub
-2. Go to **Actions** → **Build amnesic-wipe ISO** → **Run workflow**
+2. Go to **Actions** → **Build ArchNesic ISO** → **Run workflow**
 3. Wait ~5–10 minutes
-4. Download the `amnesic-wipe-iso` artifact
-5. Write to USB: `dd if=amnesic-wipe-*.iso of=/dev/sdX bs=4M status=progress && sync`
+4. Download the `archnesic-iso` artifact
+5. Write to USB: `dd if=archnesic-*.iso of=/dev/sdX bs=4M status=progress && sync`
 
 ### Option B — Build locally
 
 ```bash
 # On Arch Linux (or any distro with Docker)
-git clone https://github.com/yourname/amnesic-wipe
-cd amnesic-wipe
+git clone https://github.com/lostsys311-arch/ArchNesic
+cd ArchNesic
 
 # Using Docker
-docker build -t amnesic-builder .
-docker run --privileged -v "$PWD/archlive/out:/out" amnesic-builder
+docker build -t archnesic-builder .
+docker run --privileged -v "$PWD/archlive/out:/out" archnesic-builder
 
 # Or directly (Arch only)
 sudo pacman -S archiso
 cd archlive
 sudo mkarchiso -v .
-```
-
-### Option C — Use raw initramfs (experimental)
-
-```bash
-sudo ./build-bare.sh   # creates amnesic-wipe.img
 ```
 
 ## Boot options

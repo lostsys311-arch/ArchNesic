@@ -1,4 +1,4 @@
-# Amnesic Wipe — Tor configuration
+# ArchNesic — Tor configuration
 # Transparent proxy: all TCP traffic goes through Tor
 
 User tor

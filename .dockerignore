@@ -1,0 +1,7 @@
+.git/
+.gitignore
+.dockerignore
+*.md
+*.ps1
+build.sh
+archlive/out/

@@ -1,8 +1,8 @@
 #!/bin/bash
-# amnesic-init.sh — first-boot initialization
+# archnesic-init.sh — first-boot initialization
 set -euo pipefail
 
-log() { echo "[amnesic] $*"; }
+log() { echo "[archnesic] $*"; }
 
 # ------------------------------------------------------------------
 # 1.  Wipe any stray data from previous boots (tmpfs is fresh, but
@@ -83,4 +83,4 @@ if ! mountpoint -q /home 2>/dev/null; then
   mount -t tmpfs -o mode=0700,noexec,nosuid,nodev tmpfs /home
 fi
 
-log "Amnesic Wipe initialised. All data is volatile."
+log "ArchNesic initialised. All data is volatile."

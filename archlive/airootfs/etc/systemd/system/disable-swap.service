@@ -1,5 +1,5 @@
 [Unit]
-Description=Amnesic Wipe — disable all swap
+Description=ArchNesic — disable all swap
 DefaultDependencies=no
 After=dev-disk-by\x2dpartuuid.device
 Before=sysinit.target

@@ -5,7 +5,7 @@ set -euo pipefail
 
 log() { echo "[wipe-memory] $*"; }
 
-log "Amnesic Wipe — scrubbing volatile memory…"
+log "ArchNesic — scrubbing volatile memory…"
 
 # 1. Overwrite swap (shouldn't exist, but be sure)
 for sw in /dev/zram* /dev/dm-*; do

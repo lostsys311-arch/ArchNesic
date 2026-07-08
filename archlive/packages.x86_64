@@ -1,15 +1,13 @@
-# Amnesic Wipe — package list (x86_64)
-# =====================================
+# ArchNesic — package list (x86_64)
+# ==================================
 
 # ── Base system ───────────────────────────────────────
 base
-base-devel
 linux
 linux-headers
 linux-firmware
 amd-ucode
 intel-ucode
-busybox
 
 # ── System utilities ──────────────────────────────────
 systemd
@@ -24,11 +22,9 @@ sed
 gawk
 tar
 gzip
-bzip2
 xz
 zstd
 less
-which
 util-linux
 kmod
 procps-ng
@@ -53,24 +49,15 @@ nftables
 macchanger
 dhcpcd
 openresolv
-bind
 curl
 wget
 openssh
+iwd
 
 # ── Editors & tools ───────────────────────────────────
 vim
-nano
-htop
 fastfetch
-tree
 unzip
-p7zip
-
-# ── Memory / system tools ─────────────────────────────
-memtest86+
-memtester
-stress
 
 # ── Desktop (lightweight Wayland) ─────────────────────
 sway
@@ -84,23 +71,15 @@ grim
 slurp
 wl-clipboard
 ttf-jetbrains-mono-nerd
-ttf-dejavu
 noto-fonts
 noto-fonts-emoji
 
 # ── XWayland (needed for some apps) ───────────────────
 xorg-xwayland
-xorg-xrandr
 
-# ── GRUB & bootloader ─────────────────────────────────
+# ── Bootloader ────────────────────────────────────────
 grub
-syslinux
 efibootmgr
-os-prober
-mtools
 
 # ── Amnesic / security extras ─────────────────────────
 haveged
-iwd
-
-wpa_supplicant

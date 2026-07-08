@@ -1,4 +1,4 @@
-# Amnesic Wipe — .bashrc
+# ArchNesic — .bashrc
 # ephemeral shell with useful defaults
 
 alias ls='ls --color=auto'

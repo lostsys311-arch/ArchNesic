@@ -2,10 +2,10 @@
 # customize_rootfs.sh — runs inside the chroot during ISO build
 set -euo pipefail
 
-echo "[customize] Applying amnesic-wipe customizations…"
+echo "[customize] Applying ArchNesic customizations…"
 
 # ── 1. Enable amnesic services ────────────────────────
-systemctl enable amnesic-wipe-init.service
+systemctl enable archnesic-init.service
 systemctl enable wipe-memory.service
 systemctl enable disable-swap.service
 systemctl enable tor.service
@@ -36,7 +36,7 @@ echo "olafkow:2015" | chpasswd
 passwd -l root 2>/dev/null || true
 
 # ── 5. Set hostname ────────────────────────────────────
-echo "awipe" > /etc/hostname
+echo "archnesic" > /etc/hostname
 
 # ── 6. Remove machine-id (regenerated on each boot) ──
 rm -f /etc/machine-id /var/lib/dbus/machine-id

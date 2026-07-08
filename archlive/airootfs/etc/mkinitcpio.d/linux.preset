@@ -1,4 +1,4 @@
-# mkinitcpio preset for amnesic-wipe
+# mkinitcpio preset for ArchNesic
 ALL_kver="/boot/vmlinuz-linux"
 PRESETS=('default' 'fallback')
 
