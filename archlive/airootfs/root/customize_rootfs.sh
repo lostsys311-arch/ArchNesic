@@ -42,14 +42,7 @@ rm -f /etc/machine-id /var/lib/dbus/machine-id
 cp -r /etc/skel/. /root/
 chown -R root:root /root || true
 
-# ── 8. Create unsafe user (UID 1000) for unsafe browser ─
-if ! id unsafe &>/dev/null; then
-  useradd -m -u 1000 -G wheel -s /bin/bash unsafe
-  # No password — runs via sudo from root
-  passwd -d unsafe 2>/dev/null || true
-fi
-
-# ── 9. Prepare Tor hidden service directory ──────────
+# ── 8. Prepare Tor hidden service directory ──────────
 mkdir -p /var/lib/tor/ssh_hidden_service
 chown -R tor:tor /var/lib/tor/ssh_hidden_service
 chmod 700 /var/lib/tor/ssh_hidden_service

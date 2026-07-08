@@ -12,17 +12,15 @@
 :POSTROUTING ACCEPT [0:0]
 
 # Redirect all TCP traffic through Tor's TransPort (9040)
-# Exclude UID 42 (Tor itself) and UID 1000 (unsafe browser)
+# Exclude UID 42 (Tor itself)
 -A OUTPUT -p tcp -m owner --uid-owner 42 -j RETURN
--A OUTPUT -p tcp -m owner --uid-owner 1000 -j RETURN
 -A OUTPUT -p tcp -d 127.0.0.0/8 -j RETURN
 -A OUTPUT -p tcp --dport 9040 -j RETURN
 -A OUTPUT -p tcp -j REDIRECT --to-ports 9040
 
 # Redirect DNS through Tor's DNSPort (5353)
-# Exclude UID 42 and UID 1000
+# Exclude UID 42
 -A OUTPUT -p udp --dport 53 -m owner --uid-owner 42 -j RETURN
--A OUTPUT -p udp --dport 53 -m owner --uid-owner 1000 -j RETURN
 -A OUTPUT -p udp --dport 53 -d 127.0.0.0/8 -j RETURN
 -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
 -A OUTPUT -p tcp --dport 53 -j REDIRECT --to-ports 5353
@@ -46,9 +44,6 @@ COMMIT
 # Tor traffic (via TUN, UID 42) — allow
 -A OUTPUT -o tun+ -j ACCEPT
 -A OUTPUT -m owner --uid-owner 42 -j ACCEPT
-
-# Unsafe browser (UID 1000) — allow direct access
--A OUTPUT -m owner --uid-owner 1000 -j ACCEPT
 
 # ICMP (rate-limited) — allow
 -A OUTPUT -p icmp -m conntrack --ctstate NEW -m limit --limit 2/sec -j ACCEPT
