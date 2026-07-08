@@ -20,23 +20,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fix pacman config (community merged into extra in 2024)
+      - name: Initialize pacman & update
         run: |
-          # Remove [community] section from container's pacman.conf
-          sed -i '/^\[community\]/,/^Include/d' /etc/pacman.conf
-          sed -i 's/^#\(ParallelDownloads\)/\1/' /etc/pacman.conf
-          pacman -Syy --noconfirm
-      - name: System update & install deps
+          pacman-key --init
+          pacman-key --populate archlinux
+          sed -i '/^\[community\]/d; /^Include/s,^,#,' /etc/pacman.conf 2>/dev/null
+          sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+          pacman -Syyu --noconfirm
+
+      - name: Install build deps
         run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm --needed archiso mkinitcpio
+          pacman -S --noconfirm --needed archiso
+
       - name: Build ISO
         run: |
           cd archlive
           mkarchiso -v .
+
       - name: Rename ISO
         run: |
-          mv archlive/out/*.iso archlive/out/archnesic-$(date +%Y%m%d).iso
+          mv archlive/out/*.iso "archlive/out/archnesic-$(date +%Y%m%d).iso"
+
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
