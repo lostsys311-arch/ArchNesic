@@ -78,6 +78,7 @@ noto-fonts-emoji
 xorg-xwayland
 
 # ── Bootloader ────────────────────────────────────────
+syslinux
 grub
 efibootmgr
 
