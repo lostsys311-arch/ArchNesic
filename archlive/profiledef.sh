@@ -1,10 +1,9 @@
 #!/bin/bash
 # vim: set ft=sh:
-
 iso_name="archnesic"
 iso_label="ARNESIC_$(date +%Y%m)"
 iso_publisher="ArchNesic"
-iso_application="ArchNesic — secure, amnesic, RAM-only Linux"
+iso_application="ArchNesic v3 — secure, amnesic, RAM-only Linux"
 iso_version="$(date +%Y.%m.%d)"
 install_dir="arnesic"
 buildmodes=('iso')
@@ -24,4 +23,9 @@ file_permissions=(
   ["/usr/local/bin/wipe-memory"]="0:0:755"
   ["/usr/local/bin/killswitch"]="0:0:755"
   ["/usr/local/bin/onion-ssh-address"]="0:0:755"
+  ["/usr/local/bin/tor-status.sh"]="0:0:755"
+  ["/usr/local/bin/unsafe-browser"]="0:0:755"
+  ["/usr/local/bin/panic-overlay.sh"]="0:0:755"
+  ["/usr/local/bin/tor-watchdog.sh"]="0:0:755"
+  ["/home/unsafe"]="1000:1000:700"
 )

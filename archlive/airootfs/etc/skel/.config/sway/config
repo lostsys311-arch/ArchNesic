@@ -1,11 +1,12 @@
-# ArchNesic — Sway (Wayland compositor) config
-# Minimal, stylish, keyboard-driven
+# ArchNesic (v3) — Sway (Wayland compositor) config
+# Minimal, stylish, keyboard-driven — Tokyo Night
 
 set $mod Mod4
 set $term foot
-set $menu wofi --show drun
+set $menu rofi -show drun
+set $menu_run rofi -show run
 
-font pango:JetBrains Mono 10
+font pango:JetBrains Mono Nerd Font 10
 
 # ── Appearance ────────────────────────────────────────
 default_border pixel 1
@@ -33,8 +34,12 @@ client.background       $bg_color
 # Launch terminal
 bindsym $mod+Return exec $term
 
-# Launch app launcher
+# Launch app launcher (rofi)
 bindsym $mod+d exec $menu
+bindsym $mod+Shift+d exec $menu_run
+
+# Unsafe browser (direct networking — no Tor)
+bindsym $mod+Shift+b exec /usr/local/bin/unsafe-browser
 
 # Kill focused window
 bindsym $mod+q kill
@@ -69,23 +74,32 @@ bindsym $mod+f fullscreen
 # Floating
 bindsym $mod+Shift+space floating toggle
 
-# Workspaces
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
+# Workspaces (named)
+set $ws1 "1:term"
+set $ws2 "2:web"
+set $ws3 "3:code"
+set $ws4 "4:chat"
+set $ws5 "5:misc"
 
-# Kill switch — drop all network immediately
-bindsym $mod+Escape exec /usr/local/bin/killswitch
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# Kill switch — drop all network immediately + panic overlay
+bindsym $mod+Escape exec /usr/local/bin/killswitch; exec /usr/local/bin/panic-overlay.sh
 
 # Lock screen
-bindsym $mod+Shift+l exec swaylock -f -c 1a1b26
+bindsym $mod+Shift+l exec swaylock
+
+# Virtual keyboard toggle
+bindsym $mod+Shift+v exec wvkbd-mobintl || true
 
 # Reload / exit
 bindsym $mod+Shift+c reload
@@ -95,6 +109,7 @@ bindsym $mod+Shift+e exit
 bar {
   position top
   status_command waybar
+  pango_markup enabled
   colors {
     background $bg_color
     statusline $fg_color
@@ -107,19 +122,17 @@ bar {
 
 # ── Screen lock on idle ───────────────────────────────
 exec swayidle -w \
-  timeout 300 'swaylock -f -c 1a1b26' \
+  timeout 300 'swaylock -f' \
   timeout 600 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -f -c 1a1b26'
+  before-sleep 'swaylock -f'
 
 # ── Startup ───────────────────────────────────────────
-exec_always {
-  # set wallpaper with swaybg
-  # (include a wallpaper in /usr/share/backgrounds/awipe/)
-  # swaybg -i /usr/share/backgrounds/awipe/wallpaper.png -m fill &
-}
+# Notification daemon
+exec dunst
 
-exec_always {
-  # start notification daemon
-  # dunst &
-}
+# Waybar (already started via bar block, but ensure it's running)
+exec waybar
+
+# Wallpaper (solid Tokyo Night background)
+exec swaybg -c '#1a1b26'

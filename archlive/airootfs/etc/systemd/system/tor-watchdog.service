@@ -1,0 +1,11 @@
+[Unit]
+Description=ArchNesic — Tor health watchdog
+After=tor.service
+Requires=tor.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/tor-watchdog.sh
+
+[Install]
+WantedBy=multi-user.target

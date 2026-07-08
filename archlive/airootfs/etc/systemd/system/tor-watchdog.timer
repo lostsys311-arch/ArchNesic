@@ -1,0 +1,16 @@
+[Unit]
+Description=ArchNesic — periodic Tor health check
+After=tor.service tor-watchdog.service
+Requires=tor.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/tor-watchdog.sh
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=30
+Unit=tor-watchdog.service
+
+[Install]
+WantedBy=timers.target

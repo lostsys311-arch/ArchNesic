@@ -1,5 +1,5 @@
-# ArchNesic — Tor configuration
-# Transparent proxy: all TCP traffic goes through Tor
+# ArchNesic — Tor configuration (v3)
+# Transparent proxy: all TCP traffic goes through Tor via iptables NAT
 
 User tor
 DataDirectory /var/lib/tor
@@ -9,16 +9,18 @@ PIDFile /run/tor/tor.pid
 Log notice file /var/log/tor/notices.log
 Log warn file /var/log/tor/warnings.log
 
-# Transparent proxy on port 9040
+# Transparent proxy on port 9040 (iptables NAT redirects here)
 VirtualAddrNetwork 10.192.0.0/10
 TransPort 127.0.0.1:9040
 DNSPort 127.0.0.1:5353
-DNSPort 127.0.0.1:53
 
 # SOCKS5 proxy on port 9050
 SOCKSPort 127.0.0.1:9050
 SOCKSPolicy accept 127.0.0.0/8
 SOCKSPolicy reject *
+
+# Tor controller port (for status checking)
+ControlPort 127.0.0.1:9151
 
 # Automap hosts onion addresses
 AutomapHostsOnResolve 1
@@ -32,10 +34,6 @@ Sandbox 1
 
 # No bridge or relay
 BridgeRelay 0
-
-# Pluggable transports (bridges)
-ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-ClientTransportPlugin snowflake exec /usr/bin/snowflake-client
 
 # Stream isolation — separate circuits per application
 SOCKSPort 127.0.0.1:9050 IsolationFlags NoIsolation

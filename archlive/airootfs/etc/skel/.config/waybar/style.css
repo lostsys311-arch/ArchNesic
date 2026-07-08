@@ -1,0 +1,134 @@
+/* ArchNesic — Waybar Tokyo Night theme */
+/* vim: set ft=css: */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 12px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(26, 27, 38, 0.95);
+  color: #c0caf5;
+  border-bottom: 1px solid #3b4261;
+}
+
+/* ── Workspaces ─────────────────────────── */
+#workspaces button {
+  padding: 0 6px;
+  background: transparent;
+  color: #565f89;
+  border-bottom: 2px solid transparent;
+}
+
+#workspaces button.focused {
+  color: #c0caf5;
+  background: rgba(122, 162, 247, 0.15);
+  border-bottom: 2px solid #7aa2f7;
+}
+
+#workspaces button.urgent {
+  color: #e0af68;
+  border-bottom: 2px solid #e0af68;
+}
+
+#workspaces button:hover {
+  background: rgba(122, 162, 247, 0.1);
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* ── Tor status ─────────────────────────── */
+#custom-tor {
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+#custom-tor.connected {
+  color: #9ece6a;
+}
+
+#custom-tor.bootstrapping {
+  color: #e0af68;
+}
+
+#custom-tor.off {
+  color: #f7768e;
+}
+
+/* ── Modules ────────────────────────────── */
+#clock {
+  padding: 0 10px;
+  color: #7dcfff;
+  font-weight: bold;
+}
+
+#cpu,
+#memory,
+#custom-memfree,
+#network,
+#pulseaudio,
+#battery,
+#custom-killswitch {
+  padding: 0 8px;
+  color: #a9b1d6;
+}
+
+#cpu {
+  color: #bb9af7;
+}
+
+#memory {
+  color: #7dcfff;
+}
+
+#custom-memfree {
+  color: #9ece6a;
+}
+
+#network {
+  color: #73daca;
+}
+
+#network.disconnected {
+  color: #f7768e;
+}
+
+#pulseaudio {
+  color: #e0af68;
+}
+
+#battery {
+  color: #9ece6a;
+}
+
+#battery.warning {
+  color: #e0af68;
+}
+
+#battery.critical {
+  color: #f7768e;
+}
+
+#custom-killswitch {
+  color: #f7768e;
+  font-size: 14px;
+}
+
+#custom-killswitch:hover {
+  background: rgba(247, 118, 142, 0.15);
+}
+
+#tray {
+  padding: 0 6px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}

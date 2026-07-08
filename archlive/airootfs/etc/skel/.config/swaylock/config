@@ -1,0 +1,41 @@
+# ArchNesic — Swaylock config
+# Tokyo Night palette
+
+font=JetBrains Mono Nerd Font
+
+# Colors
+color=1a1b26
+
+inside-color=1a1b26
+inside-clear-color=24283b
+inside-ver-color=24283b
+inside-wrong-color=1a1b26
+
+line-color=3b4261
+line-clear-color=7aa2f7
+line-ver-color=bb9af7
+line-wrong-color=f7768e
+
+ring-color=3b4261
+ring-clear-color=7aa2f7
+ring-ver-color=bb9af7
+ring-wrong-color=f7768e
+
+text-color=c0caf5
+text-clear-color=7aa2f7
+text-ver-color=bb9af7
+text-wrong-color=f7768e
+
+key-hl-color=7dcfff
+bs-hl-color=f7768e
+
+separator-color=000000
+
+# General
+screenshots=0
+grace=2
+fade-in=0.2
+effect-blur=7x5
+clock=1
+timestr=%H:%M
+datestr=%a %d %b

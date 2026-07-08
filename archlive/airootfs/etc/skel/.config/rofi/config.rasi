@@ -1,0 +1,121 @@
+/* ArchNesic — Rofi Tokyo Night theme */
+* {
+  font: "JetBrains Mono Nerd Font 10";
+
+  /* Tokyo Night colors */
+  bg:       #1a1b26;
+  bg-alt:   #24283b;
+  fg:       #c0caf5;
+  fg-alt:   #a9b1d6;
+  accent:   #7aa2f7;
+  urgent:   #f7768e;
+  cyanish:  #7dcfff;
+  greenish: #9ece6a;
+}
+
+window {
+  transparency: "real";
+  background-color: @bg;
+  text-color: @fg;
+  border: 2px;
+  border-color: @accent;
+  border-radius: 8;
+  width: 600;
+  location: center;
+  anchor: center;
+}
+
+mainbox {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+inputbar {
+  spacing: 0;
+  padding: 8;
+  background-color: @bg-alt;
+  text-color: @fg;
+  border-radius: 6;
+  margin: 8;
+  children: [prompt,entry,case-indicator];
+}
+
+prompt {
+  text-color: @accent;
+  padding: 0 4 0 0;
+}
+
+entry {
+  padding: 0 4;
+  text-color: @fg;
+}
+
+case-indicator {
+  text-color: @fg-alt;
+  padding: 0 4;
+}
+
+listview {
+  lines: 8;
+  columns: 1;
+  spacing: 2;
+  padding: 4 8;
+  background-color: transparent;
+}
+
+element {
+  padding: 6 8;
+  border-radius: 4;
+  background-color: transparent;
+  text-color: @fg;
+}
+
+element normal.normal {
+  background-color: transparent;
+  text-color: @fg;
+}
+
+element selected.normal {
+  background-color: @accent;
+  text-color: @bg;
+  border-radius: 4;
+}
+
+element urgent.normal {
+  background-color: @urgent;
+  text-color: @bg;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+}
+
+element-icon {
+  size: 0.8em;
+  padding: 0 6 0 0;
+}
+
+scrollbar {
+  width: 4;
+  handle-color: @accent;
+  border: 0;
+}
+
+message {
+  padding: 4;
+  background-color: transparent;
+}
+
+textbox {
+  text-color: @fg-alt;
+  padding: 4 8;
+}
+
+button {
+  background-color: @bg-alt;
+  text-color: @fg;
+  border-radius: 4;
+  padding: 4 8;
+}

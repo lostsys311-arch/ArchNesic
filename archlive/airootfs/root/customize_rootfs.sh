@@ -1,14 +1,15 @@
 #!/bin/bash
-# customize_rootfs.sh — runs inside the chroot during ISO build
+# customize_rootfs.sh (v3) — runs inside the chroot during ISO build
 set -euo pipefail
 
-echo "[customize] Applying ArchNesic customizations…"
+echo "[customize] Applying ArchNesic v3 customizations…"
 
 # ── 1. Enable amnesic services ────────────────────────
 systemctl enable archnesic-init.service
 systemctl enable wipe-memory.service
 systemctl enable disable-swap.service
 systemctl enable tor.service
+systemctl enable tor-watchdog.timer
 
 # ── 2. Mask unnecessary services (reduce attack surface) ─
 for svc in \
@@ -41,12 +42,24 @@ rm -f /etc/machine-id /var/lib/dbus/machine-id
 cp -r /etc/skel/. /root/
 chown -R root:root /root || true
 
-# ── 8. Prepare Tor hidden service directory ──────────
+# ── 8. Create unsafe user (UID 1000) for unsafe browser ─
+if ! id unsafe &>/dev/null; then
+  useradd -m -u 1000 -G wheel -s /bin/bash unsafe
+  # No password — runs via sudo from root
+  passwd -d unsafe 2>/dev/null || true
+fi
+
+# ── 9. Prepare Tor hidden service directory ──────────
 mkdir -p /var/lib/tor/ssh_hidden_service
 chown -R tor:tor /var/lib/tor/ssh_hidden_service
 chmod 700 /var/lib/tor/ssh_hidden_service
 
-# ── 9. Clean package cache ────────────────────────────
+# ── 10. Enable Plymouth boot splash ──────────────────
+systemctl enable plymouth-start.service 2>/dev/null || true
+systemctl enable plymouth-quit.service 2>/dev/null || true
+systemctl enable plymouth-read-write.service 2>/dev/null || true
+
+# ── 11. Clean package cache ────────────────────────────
 pacman -Scc --noconfirm || true
 
-echo "[customize] Done."
+echo "[customize] v3 customizations complete."

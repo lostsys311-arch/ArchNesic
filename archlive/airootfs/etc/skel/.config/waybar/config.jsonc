@@ -1,0 +1,95 @@
+// ArchNesic — Waybar config
+// Tokyo Night theme — minimal amnesic desktop
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 4,
+  "margin-top": 0,
+  "margin-bottom": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+
+  "modules-left": ["custom/tor", "sway/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/memfree", "custom/killswitch", "pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+
+  "custom/tor": {
+    "exec": "/usr/local/bin/tor-status.sh",
+    "interval": 10,
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "connected": "🔒",
+      "bootstrapping": "🔐",
+      "off": "🔓"
+    }
+  },
+
+  "custom/memfree": {
+    "format": "🧠 {}",
+    "exec": "free -h | awk '/^Mem:/ {print $3\"/\"$2}'",
+    "interval": 30
+  },
+
+  "custom/killswitch": {
+    "format": "⛔",
+    "on-click": "/usr/local/bin/killswitch",
+    "tooltip": "Click to drop all network"
+  },
+
+  "clock": {
+    "format": "{:%H:%M  %a %d %b}",
+    "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}",
+    "interval": 60
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "interval": 10
+  },
+
+  "memory": {
+    "format": "RAM {}%",
+    "interval": 30
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-icons": {
+      "default": ["🔇", "🔈", "🔉", "🔊"]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "📶 {essid} ({signalStrength}%)",
+    "format-ethernet": "🌐",
+    "format-disconnected": "🚫",
+    "interval": 30
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["🪫", "🔋", "🔋"],
+    "interval": 60
+  },
+
+  "tray": {
+    "spacing": 8
+  }
+}

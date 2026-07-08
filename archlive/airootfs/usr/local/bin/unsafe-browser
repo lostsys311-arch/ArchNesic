@@ -1,0 +1,54 @@
+#!/bin/bash
+# unsafe-browser — launch Firefox with direct (non-Tor) networking
+# Uses dedicated 'unsafe' user UID 1000 to bypass Tor firewall
+# WARNING: This browser does NOT route through Tor
+
+set -euo pipefail
+
+UNSAFE_USER="unsafe"
+UNSAFE_HOME="/home/${UNSAFE_USER}"
+FIREFOX_PROFILE="${UNSAFE_HOME}/.mozilla/firefox/unsafe"
+WARNING_MSG="⚠ UNSAFE BROWSER — NOT USING TOR ⚠"
+
+# Ensure the unsafe user exists
+if ! id "$UNSAFE_USER" &>/dev/null; then
+  echo "[unsafe-browser] ERROR: User '${UNSAFE_USER}' not found." >&2
+  echo "[unsafe-browser] Run: sudo useradd -m -u 1000 ${UNSAFE_USER}" >&2
+  exit 1
+fi
+
+# Ensure Firefox profile exists with warning
+if [ ! -d "$FIREFOX_PROFILE" ]; then
+  mkdir -p "$FIREFOX_PROFILE"
+  cat > "${FIREFOX_PROFILE}/user.js" << 'EOF'
+// Unsafe Browser — NO Tor routing
+user_pref("network.proxy.socks", "");
+user_pref("network.proxy.socks_port", 0);
+user_pref("network.proxy.type", 0);
+user_pref("network.proxy.no_proxies_on", "");
+user_pref("privacy.clearOnShutdown.history", true);
+user_pref("privacy.clearOnShutdown.cookies", true);
+user_pref("privacy.clearOnShutdown.cache", true);
+user_pref("browser.startup.homepage", "about:blank");
+user_pref("browser.newtabpage.enabled", false);
+user_pref("signon.rememberSignons", false);
+user_pref("browser.formfill.enable", false);
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("browser.shell.checkDefaultBrowser", false);
+user_pref("datareporting.healthreport.uploadEnabled", false);
+EOF
+  chown -R "${UNSAFE_USER}:${UNSAFE_USER}" "$UNSAFE_HOME"
+fi
+
+# Notify user
+notify-send -u critical "⚠ UNSAFE BROWSER" "Traffic is NOT routed through Tor" -t 5000
+echo ""
+echo "  ╔══════════════════════════════════════════════════╗"
+echo "  ║     ⚠  UNSAFE BROWSER — NOT USING TOR  ⚠       ║"
+echo "  ║  This browser connects DIRECTLY to the network   ║"
+echo "  ║  Close it when you are done                      ║"
+echo "  ╚══════════════════════════════════════════════════╝"
+echo ""
+
+# Launch Firefox as unsafe user with direct networking
+exec sudo -u "$UNSAFE_USER" firefox --no-remote --profile "$FIREFOX_PROFILE" "$@"

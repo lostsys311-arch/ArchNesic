@@ -1,4 +1,4 @@
-# ArchNesic — package list (x86_64)
+# ArchNesic (v3) — package list (x86_64)
 # ==================================
 
 # ── Base system ───────────────────────────────────────
@@ -58,11 +58,12 @@ iwd
 vim
 fastfetch
 unzip
+firefox
 
 # ── Desktop (lightweight Wayland) ─────────────────────
 sway
 foot
-wofi
+rofi
 waybar
 swaybg
 swayidle
@@ -73,6 +74,8 @@ wl-clipboard
 ttf-jetbrains-mono-nerd
 noto-fonts
 noto-fonts-emoji
+dunst
+wvkbd
 
 # ── XWayland (needed for some apps) ───────────────────
 xorg-xwayland
@@ -81,6 +84,10 @@ xorg-xwayland
 syslinux
 grub
 efibootmgr
+
+# ── Plymouth (boot splash) ────────────────────────────
+plymouth
+plymouth-theme-spinner
 
 # ── Amnesic / security extras ─────────────────────────
 haveged

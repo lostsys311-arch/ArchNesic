@@ -1,7 +1,35 @@
-# ArchNesic — Transparent Tor firewall
+# ArchNesic (v3) — Transparent Tor firewall with NAT redirect
 # All non-Tor output is blocked.
 # Only UID 42 (Tor) may route through the default gateway.
-#
+# TCP traffic is transparently redirected through Tor's TransPort.
+# DNS is forced through Tor's DNSPort.
+
+# ── NAT table — redirect traffic through Tor ─────
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+# Redirect all TCP traffic through Tor's TransPort (9040)
+# Exclude UID 42 (Tor itself) and UID 1000 (unsafe browser)
+-A OUTPUT -p tcp -m owner --uid-owner 42 -j RETURN
+-A OUTPUT -p tcp -m owner --uid-owner 1000 -j RETURN
+-A OUTPUT -p tcp -d 127.0.0.0/8 -j RETURN
+-A OUTPUT -p tcp --dport 9040 -j RETURN
+-A OUTPUT -p tcp -j REDIRECT --to-ports 9040
+
+# Redirect DNS through Tor's DNSPort (5353)
+# Exclude UID 42 and UID 1000
+-A OUTPUT -p udp --dport 53 -m owner --uid-owner 42 -j RETURN
+-A OUTPUT -p udp --dport 53 -m owner --uid-owner 1000 -j RETURN
+-A OUTPUT -p udp --dport 53 -d 127.0.0.0/8 -j RETURN
+-A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 5353
+-A OUTPUT -p tcp --dport 53 -j REDIRECT --to-ports 5353
+
+COMMIT
+
+# ── Filter table — block non-Tor traffic ────────
 *filter
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
@@ -19,11 +47,10 @@
 -A OUTPUT -o tun+ -j ACCEPT
 -A OUTPUT -m owner --uid-owner 42 -j ACCEPT
 
-# DNS via Tor — allow
--A OUTPUT -p udp --dport 53 -j ACCEPT
--A OUTPUT -p tcp --dport 53 -j ACCEPT
+# Unsafe browser (UID 1000) — allow direct access
+-A OUTPUT -m owner --uid-owner 1000 -j ACCEPT
 
-# ICMP (ping etc., rate-limited) — allow
+# ICMP (rate-limited) — allow
 -A OUTPUT -p icmp -m conntrack --ctstate NEW -m limit --limit 2/sec -j ACCEPT
 
 # Log dropped packets
