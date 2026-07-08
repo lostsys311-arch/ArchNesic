@@ -1,4 +1,4 @@
-# ⟐ Amnesic Wipe
+# ⟐ ArchNesic
 
 **Secure · Amnesic · RAM-only · Arch-based Linux**
 
