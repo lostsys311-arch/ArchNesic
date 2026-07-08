@@ -7,10 +7,14 @@ on:
     branches: [main, master]
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *'   # rebuild monthly
+    - cron: '0 0 1 * *'    # rebuild monthly
 
 jobs:
   build:
+    strategy:
+      matrix:
+        variant: [standard, secure]
+      fail-fast: false
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
@@ -32,6 +36,16 @@ jobs:
         run: |
           pacman -S --noconfirm --needed archiso
 
+      - name: Apply Secure Boot hardening params
+        if: matrix.variant == 'secure'
+        run: |
+          # UEFI entry
+          sed -i 's/page_alloc.shuffle=1 randomize_kstack_offset=on \\/page_alloc.shuffle=1 randomize_kstack_offset=on \\\n        lockdown=confidentiality \\\n        module.sig_enforce=1 \\/' \
+            archlive/efiboot/loader/entries/archiso-x86_64.conf
+          # BIOS entry (syslinux)
+          sed -i 's/page_alloc.shuffle=1 randomize_kstack_offset=on \\/page_alloc.shuffle=1 randomize_kstack_offset=on \\\n         lockdown=confidentiality \\\n         module.sig_enforce=1 \\/' \
+            archlive/syslinux/archiso_sys.cfg
+
       - name: Build ISO
         run: |
           cd archlive
@@ -39,12 +53,16 @@ jobs:
 
       - name: Rename ISO
         run: |
-          mv archlive/out/*.iso "archlive/out/archnesic-v3-$(date +%Y%m%d).iso"
+          if [ "${{ matrix.variant }}" = "secure" ]; then
+            mv archlive/out/*.iso "archlive/out/archnesic-v3-secure-$(date +%Y%m%d).iso"
+          else
+            mv archlive/out/*.iso "archlive/out/archnesic-v3-$(date +%Y%m%d).iso"
+          fi
 
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
-          name: archnesic-iso
+          name: archnesic-${{ matrix.variant }}
           path: archlive/out/*.iso
           compression-level: 0
           retention-days: 90
