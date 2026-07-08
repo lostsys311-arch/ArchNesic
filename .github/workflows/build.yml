@@ -24,7 +24,6 @@ jobs:
         run: |
           pacman-key --init
           pacman-key --populate archlinux
-          sed -i '/^\[community\]/d; /^Include/s,^,#,' /etc/pacman.conf 2>/dev/null
           sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
           pacman -Syyu --noconfirm
 
