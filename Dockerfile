@@ -1,4 +1,4 @@
-# Dockerfile — ArchNesic ISO builder (mount archlive/ at runtime)
+# Dockerfile — ArchNesic v3 ISO builder (mount archlive/ at runtime)
 FROM archlinux:latest
 
 RUN pacman -Syu --noconfirm && \

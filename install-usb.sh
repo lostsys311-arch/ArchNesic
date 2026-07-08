@@ -12,10 +12,10 @@ echo -e "${RED}╚════════════════════�
 echo ""
 
 # Find ISO
-ISO=$(ls -1t archnesic-*.iso 2>/dev/null | head -1)
+ISO=$(ls -1t archnesic-v3-*.iso 2>/dev/null | head -1)
 if [[ -z "$ISO" ]]; then
-  echo -e "${RED}ERROR: No archnesic-*.iso found in current directory.${NC}"
-  echo "Download it first from GitHub Actions."
+  echo -e "${RED}ERROR: No archnesic-v3-*.iso found in current directory.${NC}"
+  echo "Download the latest v3 ISO from: https://github.com/lostsYS311-arch/ArchNesic/actions"
   exit 1
 fi
 echo -e "ISO: ${GREEN}$ISO${NC} ($(du -h "$ISO" | cut -f1))"
@@ -49,7 +49,7 @@ sync
 
 echo ""
 echo -e "${GREEN}✓ Done!${NC}"
-echo -e "Boot from $DEVICE and choose ${YELLOW}ArchNesic${NC} in the menu."
+echo -e "Boot from $DEVICE and choose ${YELLOW}ArchNesic v3${NC} in the menu."
 echo ""
 echo -e "WARNING: This system leaves ${RED}NO TRACE${NC} after shutdown."
 echo -e "         All data is lost when you power off."
