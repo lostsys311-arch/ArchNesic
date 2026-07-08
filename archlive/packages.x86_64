@@ -84,8 +84,7 @@ efibootmgr
 
 # ── Amnesic / security extras ─────────────────────────
 haveged
-obfs4
-snowflake-tor
+# obfs4proxy and snowflake are AUR-only; install manually after boot
 
 # ── Desktop apps ──────────────────────────────────────
 keepassxc
