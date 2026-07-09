@@ -74,23 +74,20 @@ bindsym $mod+f fullscreen
 # Floating
 bindsym $mod+Shift+space floating toggle
 
-# Workspaces (named)
-set $ws1 "1:term"
-set $ws2 "2:web"
-set $ws3 "3:code"
-set $ws4 "4:chat"
-set $ws5 "5:misc"
+# Virtual keyboard (bypass HW keyloggers)
+bindsym $mod+Shift+v exec wvkbd-mobile-text --alpha 200
 
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
+# Workspaces
+bindsym $mod+1 workspace "1:term"
+bindsym $mod+2 workspace "2:web"
+bindsym $mod+3 workspace "3:code"
+bindsym $mod+4 workspace "4:chat"
+bindsym $mod+5 workspace "5:misc"
+bindsym $mod+Shift+1 move container to workspace "1:term"
+bindsym $mod+Shift+2 move container to workspace "2:web"
+bindsym $mod+Shift+3 move container to workspace "3:code"
+bindsym $mod+Shift+4 move container to workspace "4:chat"
+bindsym $mod+Shift+5 move container to workspace "5:misc"
 
 # Kill switch — drop all network immediately + panic overlay
 bindsym $mod+Escape exec /usr/local/bin/killswitch; exec /usr/local/bin/panic-overlay.sh

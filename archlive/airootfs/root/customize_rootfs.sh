@@ -4,16 +4,20 @@ set -euo pipefail
 
 echo "[customize] Applying ArchNesic v3 customizations…"
 
+# ── 0. Generate locale ──────────────────────────────
+sed -i 's/^#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
+locale-gen
+
 # ── 1. Enable amnesic services ────────────────────────
 systemctl enable archnesic-init.service
 systemctl enable wipe-memory.service
 systemctl enable disable-swap.service
 systemctl enable tor.service
 systemctl enable tor-watchdog.timer
+systemctl enable sshd.service
 
 # ── 2. Mask unnecessary services (reduce attack surface) ─
 for svc in \
-  systemd-timesyncd.service \
   systemd-journald-audit.socket \
   systemd-coredump.socket \
   bluetooth.service bluetooth.target \

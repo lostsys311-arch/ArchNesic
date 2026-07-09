@@ -3,8 +3,8 @@
 
 # ── Base system ───────────────────────────────────────
 base
-linux
-linux-headers
+linux-hardened
+linux-hardened-headers
 linux-firmware
 amd-ucode
 intel-ucode
@@ -88,8 +88,14 @@ efibootmgr
 plymouth
 
 # ── Amnesic / security extras ─────────────────────────
-haveged
+jitterentropy-rngd
 # obfs4proxy and snowflake are AUR-only; install manually after boot
+
+# ── Virtual keyboard ──────────────────────────────────
+wvkbd
+
+# ── Memory testing (for secure wipe) ──────────────────
+memtester
 
 # ── Desktop apps ──────────────────────────────────────
 keepassxc

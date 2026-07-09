@@ -69,7 +69,15 @@ sysctl -w fs.protected_regular=2
 sysctl -w kernel.unprivileged_userns_clone=0
 
 # ------------------------------------------------------------------
-# 5.  Start Tor transparent proxy
+# 5.  Restart dhcpcd on randomised MACs
+# ------------------------------------------------------------------
+if command -v dhcpcd &>/dev/null; then
+  log "Restarting dhcpcd…"
+  systemctl restart dhcpcd 2>/dev/null || dhcpcd -q 2>/dev/null || true
+fi
+
+# ------------------------------------------------------------------
+# 6.  Start Tor transparent proxy
 # ------------------------------------------------------------------
 if command -v tor &>/dev/null; then
   log "Starting Tor…"
@@ -77,14 +85,14 @@ if command -v tor &>/dev/null; then
 fi
 
 # ------------------------------------------------------------------
-# 6.  Ensure /home is a tmpfs so nothing persists
+# 7.  Ensure /home is a tmpfs so nothing persists
 # ------------------------------------------------------------------
 if ! mountpoint -q /home 2>/dev/null; then
   mount -t tmpfs -o mode=0700,noexec,nosuid,nodev tmpfs /home
 fi
 
 # ------------------------------------------------------------------
-# 7.  Set random hostname (amnesic — no identity)
+# 8.  Set random hostname (amnesic — no identity)
 # ------------------------------------------------------------------
 RANDOM_HOSTNAME="arnesic-$(openssl rand -hex 4)"
 hostname "$RANDOM_HOSTNAME"
@@ -92,7 +100,7 @@ echo "$RANDOM_HOSTNAME" > /proc/sys/kernel/hostname
 log "Hostname set to $RANDOM_HOSTNAME"
 
 # ------------------------------------------------------------------
-# 8.  Unload USB storage drivers (we're in RAM, no need)
+# 9.  Unload USB storage drivers (we're in RAM, no need)
 # ------------------------------------------------------------------
 rmmod usb-storage 2>/dev/null || true
 rmmod uas 2>/dev/null || true

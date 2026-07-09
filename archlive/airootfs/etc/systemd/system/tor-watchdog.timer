@@ -1,6 +1,6 @@
 [Unit]
 Description=ArchNesic — periodic Tor health check
-After=tor.service tor-watchdog.service
+After=tor.service
 Requires=tor.service
 
 [Service]

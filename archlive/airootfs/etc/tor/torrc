@@ -14,8 +14,7 @@ VirtualAddrNetwork 10.192.0.0/10
 TransPort 127.0.0.1:9040
 DNSPort 127.0.0.1:5353
 
-# SOCKS5 proxy on port 9050
-SOCKSPort 127.0.0.1:9050
+# SOCKS5 proxy — stream isolation per port
 SOCKSPolicy accept 127.0.0.0/8
 SOCKSPolicy reject *
 
@@ -36,6 +35,8 @@ Sandbox 1
 BridgeRelay 0
 
 # Stream isolation — separate circuits per application
+# Port 9050: default (no isolation), 9060: by destination address,
+# 9070: by destination port, 9080: by client protocol, 9090: by both addr+port
 SOCKSPort 127.0.0.1:9050 IsolationFlags NoIsolation
 SOCKSPort 127.0.0.1:9060 IsolationFlags IsolateDestAddr
 SOCKSPort 127.0.0.1:9070 IsolationFlags IsolateDestPort
