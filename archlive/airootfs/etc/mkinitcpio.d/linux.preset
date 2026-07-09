@@ -1,9 +1,9 @@
-# mkinitcpio preset for ArchNesic (linux-hardened)
-ALL_kver="/boot/vmlinuz-linux-hardened"
+# mkinitcpio preset
+ALL_kver="/boot/vmlinuz-linux"
 PRESETS=('default' 'fallback')
 
-default_image="/boot/initramfs-linux-hardened.img"
+default_image="/boot/initramfs-linux.img"
 default_options="-S autodetect"
 
-fallback_image="/boot/initramfs-linux-hardened-fallback.img"
+fallback_image="/boot/initramfs-linux-fallback.img"
 fallback_options="-S autodetect"

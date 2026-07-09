@@ -35,7 +35,7 @@ Auto-login on tty1 with full root access.
 | **USB armoring** | USB mass storage blocked after boot (HID/keyboard still works). |
 | **Firewall** | iptables + nftables. Non-Tor traffic blocked. Unsafe browser uses separate network namespace. |
 | **Plymouth boot splash** | Animated boot splash hides kernel messages. |
-| **Kernel hardening** | `linux-hardened` + lockdown + KASLR + slab_nomerge + init_on_alloc/free + BPF disabled + more. |
+| **Kernel hardening** | Hardened boot params — lockdown + KASLR + slab_nomerge + init_on_alloc/free + BPF disabled + more. |
 | **No swap** | Swap disabled. No data ever written to disk. |
 | **Lightweight** | ~550 MB ISO. Sway + Wayland, modern fast desktop. |
 | **Stylish** | Tokyo Night theme, JetBrains Mono Nerd Font, Rofi/Waybar/Dunst all themed. |

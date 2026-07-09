@@ -3,8 +3,8 @@
 
 # ── Base system ───────────────────────────────────────
 base
-linux-hardened
-linux-hardened-headers
+linux
+linux-headers
 linux-firmware
 amd-ucode
 intel-ucode
@@ -88,7 +88,7 @@ efibootmgr
 plymouth
 
 # ── Amnesic / security extras ─────────────────────────
-# (kernel entropy is sufficient on modern hardware)
+# (kernel entropy is sufficient on modern hardware; hardening via boot params, not kernel package)
 # obfs4proxy and snowflake are AUR-only; install manually after boot
 
 # ── Memory testing (for secure wipe) ──────────────────
