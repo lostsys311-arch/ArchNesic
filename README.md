@@ -25,7 +25,7 @@ Auto-login on tty1 with full root access.
 | **Tor status in waybar** | Live indicator shows connected/bootstrapping/off — click for exit IP. |
 | **Tor watchdog** | Auto-monitors Tor health every 30s; triggers killswitch if Tor dies. |
 | **Stream isolation** | 5 separate SOCKS ports (9050–9090), each with different circuit isolation flags. |
-| **Unsafe browser** | Firefox with direct networking (no Tor) — runs as UID 1000, clearly warned. `$mod+Shift+B` |
+| **Unsafe browser** | Firefox in isolated network namespace with direct networking (no Tor), clearly warned. `$mod+Shift+B` |
 | **Onion SSH** | Auto-generated `.onion` hidden service — SSH into the box via Tor. |
 | **Kill switch** | `$mod+Escape` — drops all interfaces + stops Tor + fullscreen panic overlay. |
 | **Rofi launcher** | Replaces wofi — Tokyo Night themed, better search. `$mod+D` |
@@ -33,7 +33,7 @@ Auto-login on tty1 with full root access.
 | **Virtual keyboard** | `wvkbd` — `$mod+Shift+V` to toggle. Bypasses HW keyloggers. |
 | **Screen lock** | Auto-locks after 5 min idle. `$mod+Shift+L` to lock. Swaylock with Tokyo Night. |
 | **USB armoring** | USB mass storage blocked after boot (HID/keyboard still works). |
-| **Firewall** | iptables + nftables. Non-Tor traffic blocked. UID 1000 (unsafe) exempted. |
+| **Firewall** | iptables + nftables. Non-Tor traffic blocked. Unsafe browser uses separate network namespace. |
 | **Plymouth boot splash** | Animated boot splash hides kernel messages. |
 | **Kernel hardening** | `linux-hardened` + lockdown + KASLR + slab_nomerge + init_on_alloc/free + BPF disabled + more. |
 | **No swap** | Swap disabled. No data ever written to disk. |
@@ -93,7 +93,7 @@ sudo mkarchiso -v .
 
 | Command | What it does |
 |---|---|
-| `onion-address` | Print the SSH `.onion` address for this session |
+| `onion-address` | Print the SSH `.onion` address (connect as `root`) |
 | `killswitch` | Drop all network interfaces + stop Tor |
 | `lock` | Lock the screen immediately |
 | `unsafe` | Launch unsafe browser (no Tor) |
@@ -129,12 +129,14 @@ Each port forces Tor to build a **separate circuit** for traffic matching that i
 
 ## Unsafe browser
 
-The unsafe browser (Firefox) runs as UID 1000 with **direct networking** — no Tor. Use it for:
+The unsafe browser (Firefox) runs in an isolated network namespace with **direct networking** — completely bypasses Tor. Use it for:
 - Local router/admin panel access
 - Printer configuration
 - Captive portal login
 
-It launches with a prominent warning and is visually distinct. Access via `$mod+Shift+B` or `unsafe` in terminal.
+It creates a separate `unsafe` network namespace with its own routing table and NAT to the physical interface. All Tor iptables rules are bypassed.
+
+Launches with a prominent warning and is visually distinct. Access via `$mod+Shift+B` or `unsafe` in terminal.
 
 ## Tor watchdog
 
