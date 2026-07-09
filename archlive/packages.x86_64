@@ -88,11 +88,8 @@ efibootmgr
 plymouth
 
 # ── Amnesic / security extras ─────────────────────────
-jitterentropy-rngd
+# (kernel entropy is sufficient on modern hardware)
 # obfs4proxy and snowflake are AUR-only; install manually after boot
-
-# ── Virtual keyboard ──────────────────────────────────
-wvkbd
 
 # ── Memory testing (for secure wipe) ──────────────────
 memtester

@@ -74,9 +74,6 @@ bindsym $mod+f fullscreen
 # Floating
 bindsym $mod+Shift+space floating toggle
 
-# Virtual keyboard (bypass HW keyloggers)
-bindsym $mod+Shift+v exec wvkbd-mobile-text --alpha 200
-
 # Workspaces
 bindsym $mod+1 workspace "1:term"
 bindsym $mod+2 workspace "2:web"

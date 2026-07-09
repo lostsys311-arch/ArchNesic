@@ -30,7 +30,7 @@ Auto-login on tty1 with full root access.
 | **Kill switch** | `$mod+Escape` — drops all interfaces + stops Tor + fullscreen panic overlay. |
 | **Rofi launcher** | Replaces wofi — Tokyo Night themed, better search. `$mod+D` |
 | **Dunst notifications** | Desktop notifications with Tokyo Night styling. |
-| **Virtual keyboard** | `wvkbd` — `$mod+Shift+V` to toggle. Bypasses HW keyloggers. |
+| **Virtual keyboard** | `wvkbd` — `$mod+Shift+V` to toggle (AUR — install manually). Bypasses HW keyloggers. |
 | **Screen lock** | Auto-locks after 5 min idle. `$mod+Shift+L` to lock. Swaylock with Tokyo Night. |
 | **USB armoring** | USB mass storage blocked after boot (HID/keyboard still works). |
 | **Firewall** | iptables + nftables. Non-Tor traffic blocked. Unsafe browser uses separate network namespace. |
@@ -109,7 +109,7 @@ sudo mkarchiso -v .
 | `$mod+Shift+B` | Unsafe browser (no Tor) |
 | `$mod+Escape` | Kill switch + panic overlay |
 | `$mod+Shift+L` | Lock screen |
-| `$mod+Shift+V` | Toggle virtual keyboard |
+| `$mod+Shift+V` | Toggle virtual keyboard (install wvkbd from AUR) |
 | `$mod+Q` | Kill focused window |
 | `$mod+[1-5]` | Switch workspace |
 
